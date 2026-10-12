@@ -5,7 +5,6 @@ description: Implementation agent for building a multi-agent AI solution that au
   human approval gates. This agent focuses on executing the onboarding workflow, translating architectural guidance into concrete
   implementation steps, coordinating required artifacts, and ensuring changes remain aligned with established standards, controls,
   and approval checkpoints
-model: eu.anthropic.claude-sonnet-4-6
 temperature: 0.6
 max_tokens: -1
 agent_type: agent

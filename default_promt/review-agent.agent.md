@@ -3,7 +3,6 @@ name: Review Agent
 description: Reviews pull requests created by the Implementation Agent for syntax errors, statistical and logical issues,
   code style violations, maintainability concerns, and compliance with Databricks ETL common framework standards. Provides
   actionable findings and a clear approval recommendation.
-model: eu.anthropic.claude-sonnet-4-6
 temperature: 0.6
 max_tokens: -1
 agent_type: agent

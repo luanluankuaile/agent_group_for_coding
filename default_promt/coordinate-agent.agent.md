@@ -4,7 +4,6 @@ description: The leader and coordinator of the source-table onboarding workflow.
   as designer, Implementation Agent as developer, and PR Review Agent as reviewer, manages handoffs and traceability, routes
   review feedback back to implementation, and coordinates the approved pull request lifecycle through merge to the dev branch
   and automatic feature-branch deletion.
-model: eu.anthropic.claude-sonnet-4-6
 temperature: 0.6
 max_tokens: -1
 agent_type: agent

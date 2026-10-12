@@ -5,7 +5,6 @@ description: Architect agent for designing and governing a multi-agent onboardin
   and human approval gates. This agent focuses on solution architecture, design decisions, standards alignment, dependency
   mapping, and approval-ready artifacts. It is intended to be triggered by the Coordinat Agent as part of a coordinated onboarding
   process.
-model: eu.anthropic.claude-sonnet-4-6
 temperature: 0.6
 max_tokens: -1
 agent_type: agent
