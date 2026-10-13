@@ -23,8 +23,28 @@ logger = logging.getLogger("agent_group")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    db = Store(settings.db_path)
-    loaded = load_agents(settings.agents_dir)
+    # ── Load agents ───────────────────────────────────────────────────────
+    try:
+        loaded = load_agents(settings.agents_dir)
+    except FileNotFoundError as exc:
+        logger.error("STARTUP FAILED — agent file not found: %s", exc)
+        logger.error("Make sure the 'default_promt/' directory exists and contains all 4 agent .md files.")
+        raise
+    except Exception as exc:
+        logger.error("STARTUP FAILED — could not load agents: %s", exc)
+        logger.error(
+            "Common causes: invalid YAML frontmatter in an agent .md file, "
+            "missing 'name' or 'temperature' field, or a syntax error."
+        )
+        raise
+
+    # ── Apply any saved prompt overrides from DB ───────────────────────────
+    try:
+        db = Store(settings.db_path)
+    except Exception as exc:
+        logger.error("STARTUP FAILED — could not open database at %s: %s", settings.db_path, exc)
+        raise
+
     for agent_id, document in db.agent_documents().items():
         agent = loaded.get(agent_id)
         if agent is None:
@@ -34,9 +54,14 @@ async def lifespan(app: FastAPI):
         except ValueError as exc:
             logger.warning("ignored saved prompt for %s: %s", agent_id, exc)
             db.delete_agent_document(agent_id)
+
     router_state["agents"] = loaded
     router_state["store"] = db
-    logger.info("loaded agents: %s", ", ".join(loaded))
+    logger.info("✓ Loaded agents: %s", ", ".join(loaded))
+    logger.info("✓ Agents dir:    %s", settings.agents_dir)
+    logger.info("✓ DB path:       %s", settings.db_path)
+    logger.info("✓ Front-end dir: %s", settings.front_end_dir)
+    logger.info("✓ Server ready — open http://127.0.0.1:8000 in your browser")
     yield
     store = router_state.get("store")
     if store is not None:
