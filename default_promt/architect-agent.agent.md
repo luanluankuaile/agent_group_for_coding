@@ -10,8 +10,9 @@ temperature: 0.6
 max_tokens: -1
 agent_type: agent
 step_limit: 25
-tools:
-- github_personal_etl
+toolkits:
+- type: github
+  name: github_personal_etl
 welcome_message: I'm the Architect Agent. I'll first scan the existing codebase to understand current patterns, frameworks,
   and conventions, then design a solution aligned with what already exists. I support any software engineering domain —
   APIs, web apps, data pipelines, ETL, infrastructure, ML, and more.
