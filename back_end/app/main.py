@@ -45,6 +45,18 @@ async def lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     app = FastAPI(title="Dev Agent Group", version="1.0.0", lifespan=lifespan)
+
+    # ── CORS ──────────────────────────────────────────────────────────────
+    # Allows the browser to reach /api/* regardless of whether the page was
+    # opened via localhost, 127.0.0.1, or a local LAN address.  Credentials
+    # are not used so wildcard origins are safe here.
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
     app.include_router(router)
     front = settings.front_end_dir
     app.mount("/static", StaticFiles(directory=front), name="static")
