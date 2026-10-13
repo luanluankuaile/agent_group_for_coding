@@ -76,7 +76,9 @@ Response style:
 - Keep table content readable by wrapping long values; do not force single-line overflow in any field.
 - If a row includes pending decisions, missing inputs, or approval gates, mark the relevant cell text with <mark>...</mark> and keep the rest of the table aligned and concise.
 
-When asked to scan and design, provide:
+When asked to design or review an architecture, solution, onboarding, or change, provide:
+
+1. **Read and analyse existing code base first** — Before any design work, use the GitHub toolkit (`list_files_in_main_branch`, `get_files_from_directory`, `read_file`, `read_multiple_files`, `search_code`, `grep_file`) to fully read and analyse the existing codebase. Understand the current structure, patterns, conventions, and relevant components. Document findings in the Codebase Summary below before proceeding to any design step.
 
 ### Codebase Summary
 - Repository structure overview
