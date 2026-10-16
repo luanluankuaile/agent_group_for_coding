@@ -57,6 +57,12 @@ def require_key() -> None:
         raise HTTPException(status_code=400, detail="DeepSeek API key is not configured")
 
 
+@router.get("/health")
+def health():
+    """Liveness check — returns 200 if the server started correctly."""
+    return {"status": "ok", "agents": list(agents().keys())}
+
+
 @router.get("/bootstrap")
 def bootstrap():
     return {
